@@ -1,0 +1,174 @@
+/* MSR Tax and Insurance - Animations */
+
+/* Service Ticker Animation - Now handled in components.css */
+
+/* Logo Ring Draw Animation */
+@keyframes draw-ring {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.logo-ring {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-ring 2s ease-out forwards;
+}
+
+/* Fade In */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in var(--transition-base) ease-out;
+}
+
+/* Slide Up */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slide-up var(--transition-base) ease-out;
+}
+
+/* Reveal Animations - Content visible by default for accessibility */
+[data-reveal] {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+/* Only hide if JS is enabled and element hasn't been revealed yet */
+.js-enabled [data-reveal]:not([class*="revealed-"]) {
+  opacity: 0;
+}
+
+.js-enabled [data-reveal="fade-up"]:not([class*="revealed-"]) {
+  transform: translateY(30px);
+}
+
+.js-enabled [data-reveal="fade-left"]:not([class*="revealed-"]) {
+  transform: translateX(-30px);
+}
+
+.js-enabled [data-reveal="fade-right"]:not([class*="revealed-"]) {
+  transform: translateX(30px);
+}
+
+[data-reveal="fade-up"] {
+  transform: translateY(30px);
+}
+
+[data-reveal="fade-left"] {
+  transform: translateX(-30px);
+}
+
+[data-reveal="fade-right"] {
+  transform: translateX(30px);
+}
+
+[data-reveal="fade"] {
+  transform: none;
+}
+
+.revealed-fade-up,
+.revealed-fade-left,
+.revealed-fade-right,
+.revealed-fade {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Stagger Animation for Lists */
+.stagger-item {
+  opacity: 0;
+  animation: slide-up var(--transition-base) ease-out forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(6) { animation-delay: 0.6s; }
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Shake Animation */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
