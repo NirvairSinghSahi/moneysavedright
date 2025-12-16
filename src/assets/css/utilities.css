@@ -159,11 +159,14 @@
   .grid-3,
   .grid-4 {
     grid-template-columns: 1fr;
+    gap: var(--spacing-md);
   }
   
   .grid-2 > :nth-child(3):last-child,
   .grid-3 > :nth-child(3):last-child {
     max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 

@@ -38,9 +38,9 @@ function Navigation() {
 
   return (
     <>
-      {/* Desktop Navigation */}
+      {/* Navigation Bar - Works for both Desktop and Mobile */}
       <nav 
-        className={`sticky top-0 z-50 bg-[#F5F5F5] transition-all duration-300 ${
+        className={`sticky lg:sticky top-0 z-50 bg-[#F5F5F5] transition-all duration-300 ${
           isScrolled ? 'shadow-md' : 'shadow-sm'
         }`}
         role="navigation" 
@@ -48,10 +48,10 @@ function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-4">
-            {/* Logo - with proper spacing to prevent overlap */}
+            {/* Logo */}
             <Link 
               to="/" 
-              className="flex items-center gap-3 text-[#1A1A1A] font-bold hover:opacity-80 transition-opacity flex-shrink-0"
+              className="flex items-center gap-2 sm:gap-3 text-[#1A1A1A] font-bold hover:opacity-80 transition-opacity flex-shrink-0"
               aria-label="MSR Tax and Insurance Home"
               onClick={closeMobileMenu}
             >
@@ -59,25 +59,25 @@ function Navigation() {
                 <img 
                   src="/assets/images/logo.jpeg" 
                   alt="MSR Tax and Insurance Logo"
-                  className="h-12 w-12 rounded-full object-cover"
+                  className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover"
                   onError={(e) => {
                     e.target.style.display = 'none'
                     if (!e.target.nextSibling) {
                       const fallback = document.createElement('div')
                       fallback.textContent = 'MSR'
-                      fallback.className = 'h-12 w-12 flex items-center justify-center bg-[#E5E7EB] rounded-full text-[#1A1A1A] font-bold text-sm'
+                      fallback.className = 'h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center bg-[#E5E7EB] rounded-full text-[#1A1A1A] font-bold text-xs sm:text-sm'
                       e.target.parentNode.appendChild(fallback)
                     }
                   }}
                 />
               </div>
-              <div className="hidden md:flex flex-col">
-                <span className="text-lg leading-tight font-bold">{CONFIG.companyName}</span>
-                <span className="text-xs text-[#6B7280] font-medium uppercase tracking-wide">{CONFIG.brandPromise}</span>
+              <div className="hidden sm:flex flex-col">
+                <span className="text-base sm:text-lg leading-tight font-bold">{CONFIG.companyName}</span>
+                <span className="text-xs text-[#6B7280] font-medium uppercase tracking-wide hidden md:block">{CONFIG.brandPromise}</span>
               </div>
             </Link>
 
-            {/* Desktop Navigation Links - All links with proper spacing */}
+            {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-6 flex-1 justify-start ml-8">
               {navLinks.map(link => (
                 <Link
@@ -92,52 +92,12 @@ function Navigation() {
               ))}
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Always show hamburger, close button is in sidebar */}
             <button
               onClick={toggleMobileMenu}
               className="lg:hidden p-2 text-[#1A1A1A] hover:bg-[#E5E7EB] rounded-lg transition-colors flex-shrink-0"
               aria-label="Toggle mobile menu"
               aria-expanded={isMobileMenuOpen}
-            >
-              <svg 
-                className="h-6 w-6" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                {isMobileMenuOpen ? (
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M6 18L18 6M6 6l12 12" 
-                  />
-                ) : (
-                  <>
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M4 6h16M4 12h16M4 18h16" 
-                    />
-                  </>
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Navigation */}
-      <div className="lg:hidden">
-        {/* Mobile Header Bar */}
-        <div className="bg-[#F5F5F5] border-b border-[#E5E7EB] px-4 py-3">
-          <div className="flex items-center justify-between gap-3">
-            {/* Hamburger Menu */}
-            <button
-              onClick={toggleMobileMenu}
-              className="p-2 text-[#1A1A1A] hover:bg-[#E5E7EB] rounded-lg transition-colors flex-shrink-0"
-              aria-label="Toggle menu"
             >
               <svg 
                 className="h-6 w-6" 
@@ -153,13 +113,30 @@ function Navigation() {
                 />
               </svg>
             </button>
+          </div>
+        </div>
+      </nav>
 
-            {/* Logo - Mobile */}
-            <Link 
-              to="/" 
-              className="flex items-center gap-2 flex-shrink-0"
-              onClick={closeMobileMenu}
-            >
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={closeMobileMenu}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile Menu Sidebar */}
+      <div 
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
+          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        aria-hidden={!isMobileMenuOpen}
+        style={{ overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}
+      >
+        <div className="p-6 h-full overflow-y-auto" style={{ maxHeight: '100vh', paddingBottom: '80px' }}>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
               <img 
                 src="/assets/images/logo.jpeg" 
                 alt="MSR Logo"
@@ -175,72 +152,41 @@ function Navigation() {
                 }}
               />
               <span className="text-[#1A1A1A] font-bold text-lg">{CONFIG.companyName}</span>
-            </Link>
-
-            {/* Spacer to push menu to right */}
-            <div className="flex-1"></div>
-          </div>
-        </div>
-
-        {/* Mobile Menu Overlay */}
-        {isMobileMenuOpen && (
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-            onClick={closeMobileMenu}
-          />
-        )}
-
-        {/* Mobile Menu Sidebar */}
-        <div 
-          className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
-            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
-        >
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <img 
-                  src="/assets/images/logo.jpeg" 
-                  alt="MSR Logo"
-                  className="h-10 w-10 rounded-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = 'none'
-                    if (!e.target.nextSibling) {
-                      const fallback = document.createElement('div')
-                      fallback.textContent = 'MSR'
-                      fallback.className = 'h-10 w-10 flex items-center justify-center bg-[#E5E7EB] rounded-full text-[#1A1A1A] font-bold text-xs'
-                      e.target.parentNode.appendChild(fallback)
-                    }
-                  }}
-                />
-                <span className="text-[#1A1A1A] font-bold text-lg">{CONFIG.companyName}</span>
-              </div>
-              <button
-                onClick={closeMobileMenu}
-                className="p-2 text-[#1A1A1A] hover:bg-[#E5E7EB] rounded-lg"
-              >
-                <svg 
-                  className="h-6 w-6" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M6 18L18 6M6 6l12 12" 
-                  />
-                </svg>
-              </button>
             </div>
-            
+            <button
+              onClick={closeMobileMenu}
+              className="p-2 text-[#1A1A1A] hover:bg-[#E5E7EB] rounded-lg transition-colors"
+              aria-label="Close menu"
+            >
+              <svg 
+                className="h-6 w-6" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M6 18L18 6M6 6l12 12" 
+                />
+              </svg>
+            </button>
+          </div>
+          
+          <nav aria-label="Mobile navigation">
             <ul className="space-y-2">
               {navLinks.map(link => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    onClick={closeMobileMenu}
+                    onClick={() => {
+                      closeMobileMenu()
+                      // Small delay to ensure navigation happens
+                      setTimeout(() => {
+                        window.scrollTo(0, 0)
+                      }, 100)
+                    }}
                     className={`block px-4 py-3 rounded-lg text-[#1A1A1A] font-medium hover:bg-[#F5F5F5] transition-colors ${
                       location.pathname === link.path ? 'bg-[#F5F5F5] font-semibold' : ''
                     }`}
@@ -250,7 +196,7 @@ function Navigation() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
         </div>
       </div>
     </>
