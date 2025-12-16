@@ -25,7 +25,8 @@ export const CONFIG = {
     easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
   },
   api: {
-    baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3001'
+    // In production (Vercel), use relative paths. In development, use localhost server
+    baseUrl: import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:3001')
   }
 }
 
