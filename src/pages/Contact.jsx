@@ -178,7 +178,7 @@ function Contact() {
                 <h3 className="card-title">Quick Actions</h3>
                 <div className="d-flex flex-column gap-sm">
                   <a href={CONFIG.phoneTel} className="btn btn-outline" data-action="call">Call Now</a>
-                  <button className="btn btn-outline" onClick={generateVCard} data-action="save-contact">Save Contact</button>
+                  <button className="btn btn-outline" onClick={(e) => generateVCard(e)} data-action="save-contact">Save Contact</button>
                   <a href="#contact-form" className="btn btn-outline">Send Message</a>
                 </div>
               </div>

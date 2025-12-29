@@ -24,7 +24,7 @@ function MobileActionBar() {
         </button>
         <button 
           className="mobile-action-btn" 
-          onClick={generateVCard}
+          onClick={(e) => generateVCard(e)}
           aria-label="Save Contact"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
