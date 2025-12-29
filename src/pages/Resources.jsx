@@ -42,32 +42,32 @@ function Resources() {
               <div className="card">
                 <h3 className="card-title">Tax Filing Guide</h3>
                 <p className="card-content">Complete guide to filing your personal tax return, including deadlines, deductions, and credits.</p>
-                <button className="btn btn-outline mt-md">Download PDF</button>
+                <a href="/assets/pdfs/tax-filing-guide.pdf" download className="btn btn-outline mt-md">Download PDF</a>
               </div>
               <div className="card">
                 <h3 className="card-title">Business Tax Basics</h3>
                 <p className="card-content">Essential information for business owners about HST, corporate taxes, and business registration.</p>
-                <button className="btn btn-outline mt-md">Download PDF</button>
+                <a href="/assets/pdfs/business-tax-basics.pdf" download className="btn btn-outline mt-md">Download PDF</a>
               </div>
               <div className="card">
                 <h3 className="card-title">CRA Audit Preparation</h3>
                 <p className="card-content">What to expect during a CRA audit and how to prepare your documentation.</p>
-                <button className="btn btn-outline mt-md">Download PDF</button>
+                <a href="/assets/pdfs/cra-audit-preparation.pdf" download className="btn btn-outline mt-md">Download PDF</a>
               </div>
               <div className="card">
                 <h3 className="card-title">Insurance Guide</h3>
                 <p className="card-content">Understanding different types of insurance and choosing the right coverage for your needs.</p>
-                <button className="btn btn-outline mt-md">Download PDF</button>
+                <a href="/assets/pdfs/insurance-guide.pdf" download className="btn btn-outline mt-md">Download PDF</a>
               </div>
               <div className="card">
                 <h3 className="card-title">Tax Deadlines Calendar</h3>
                 <p className="card-content">Important tax filing deadlines and dates to remember throughout the year.</p>
-                <button className="btn btn-outline mt-md">Download PDF</button>
+                <a href="/assets/pdfs/tax-deadlines-calendar.pdf" download className="btn btn-outline mt-md">Download PDF</a>
               </div>
               <div className="card">
                 <h3 className="card-title">Deduction Checklist</h3>
                 <p className="card-content">Comprehensive checklist of common tax deductions you might be eligible to claim.</p>
-                <button className="btn btn-outline mt-md">Download PDF</button>
+                <a href="/assets/pdfs/deduction-checklist.pdf" download className="btn btn-outline mt-md">Download PDF</a>
               </div>
             </div>
           </div>
