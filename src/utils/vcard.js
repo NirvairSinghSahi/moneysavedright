@@ -8,11 +8,17 @@ export function generateVCard(event) {
       event.stopPropagation()
     }
 
+    // Format company name - use "&" for better compatibility
+    const companyName = CONFIG.companyName.replace(' and ', ' & ')
+    
     const vcardData = [
       'BEGIN:VCARD',
       'VERSION:3.0',
-      `FN:${CONFIG.companyName}`,
-      `TEL;TYPE=CELL:${CONFIG.phone}`,
+      `FN:${companyName}`,
+      `N:${companyName};;;;`,
+      `ORG:${companyName}`,
+      `TEL;TYPE=CELL,VOICE:${CONFIG.phone}`,
+      `TEL;TYPE=CELL:${CONFIG.phoneFormatted}`,
       `NOTE:${CONFIG.brandPromise}`,
       'END:VCARD'
     ].join('\n')
@@ -105,11 +111,17 @@ export function generateVCard(event) {
     
     // Fallback: Try to open as data URL in new window/tab
     try {
+      // Format company name - use "&" for better compatibility
+      const companyName = CONFIG.companyName.replace(' and ', ' & ')
+      
       const dataUri = 'data:text/vcard;charset=utf-8,' + encodeURIComponent([
         'BEGIN:VCARD',
         'VERSION:3.0',
-        `FN:${CONFIG.companyName}`,
-        `TEL;TYPE=CELL:${CONFIG.phone}`,
+        `FN:${companyName}`,
+        `N:${companyName};;;;`,
+        `ORG:${companyName}`,
+        `TEL;TYPE=CELL,VOICE:${CONFIG.phone}`,
+        `TEL;TYPE=CELL:${CONFIG.phoneFormatted}`,
         `NOTE:${CONFIG.brandPromise}`,
         'END:VCARD'
       ].join('\n'))
