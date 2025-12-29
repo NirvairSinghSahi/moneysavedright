@@ -100,9 +100,19 @@ function Contact() {
         body: JSON.stringify(formData),
       })
 
+      if (!response.ok) {
+        if (response.status === 404) {
+          setSubmitError('Service temporarily unavailable. Please call us directly or try again later.')
+        } else {
+          const errorData = await response.json().catch(() => ({}))
+          setSubmitError(errorData.error || 'Failed to send message. Please try again.')
+        }
+        return
+      }
+
       const data = await response.json()
 
-      if (response.ok && data.success) {
+      if (data.success) {
         setSubmitted(true)
         setFormData({ name: '', email: '', phone: '', service: '', message: '' })
         setTimeout(() => {
@@ -113,7 +123,11 @@ function Contact() {
       }
     } catch (error) {
       console.error('Error submitting form:', error)
-      setSubmitError('Network error. Please check your connection and try again.')
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        setSubmitError('Network error. Please check your connection and try again.')
+      } else {
+        setSubmitError('An error occurred. Please try again or call us directly.')
+      }
     } finally {
       setLoading(false)
     }

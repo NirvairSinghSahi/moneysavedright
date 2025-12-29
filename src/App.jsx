@@ -9,6 +9,7 @@ import InsuranceServices from './pages/InsuranceServices'
 import Resources from './pages/Resources'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import NotFound from './pages/NotFound'
 
 // Lazy load the legal pages to avoid ad blocker issues
 const Privacy = lazy(() => import('./pages/Privacy'))
@@ -17,6 +18,20 @@ const Disclaimers = lazy(() => import('./pages/Disclaimers'))
 
 function LoadingFallback() {
   return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>
+}
+
+function ErrorFallback({ error, retry }) {
+  return (
+    <div style={{ padding: '2rem', textAlign: 'center', minHeight: '50vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      <h2 style={{ marginBottom: '1rem' }}>Unable to load page</h2>
+      <p style={{ color: '#666', marginBottom: '1.5rem' }}>There was an error loading this page. Please try again.</p>
+      {retry && (
+        <button onClick={retry} className="btn btn-primary">
+          Retry
+        </button>
+      )}
+    </div>
+  )
 }
 
 function App() {
@@ -56,6 +71,7 @@ function App() {
             </Suspense>
           } 
         />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )

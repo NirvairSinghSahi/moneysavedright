@@ -7,15 +7,15 @@ import ScrollToTop from './ScrollToTop'
 function Layout() {
   console.log('Layout rendering')
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', minHeight: '-webkit-fill-available' }}>
       <ScrollToTop />
       <Navigation />
-      <main>
+      <main style={{ flex: 1 }}>
         <Outlet />
       </main>
       <Footer />
       <MobileActionBar />
-    </>
+    </div>
   )
 }
 
